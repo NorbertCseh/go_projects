@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"os"
 	"strings"
@@ -8,7 +9,20 @@ import (
 
 func main() {
 	signs := readFile("morseCodes.txt")
-	fmt.Println(translate("    ", signs))
+	text := getSentence()
+	fmt.Println(translate(text, signs))
+}
+
+func getSentence() string {
+	reader := bufio.NewReader(os.Stdin)
+	for {
+		fmt.Println("Please add a sentence to translate")
+		text, err := reader.ReadString('\n')
+		if err != nil {
+			continue
+		}
+		return text
+	}
 }
 
 func readFile(fileName string) map[string]string {
